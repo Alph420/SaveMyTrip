@@ -3,6 +3,7 @@ package com.openclassrooms.savemytrip.models;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.content.ContentValues;
 
 /**
  * Created by Alph4 le 04/05/2020.
@@ -43,4 +44,14 @@ public class Item {
     public void setCategory(int category) { this.category = category; }
     public void setSelected(Boolean selected) { isSelected = selected; }
     public void setUserId(long userId) { this.userId = userId; }
+
+    // --- UTILS ---
+    public static Item fromContentValues(ContentValues values) {
+        final Item item = new Item();
+        if (values.containsKey("text")) item.setText(values.getAsString("text"));
+        if (values.containsKey("category")) item.setCategory(values.getAsInteger("category"));
+        if (values.containsKey("isSelected")) item.setSelected(values.getAsBoolean("isSelected"));
+        if (values.containsKey("userId")) item.setUserId(values.getAsLong("userId"));
+        return item;
+    }
 }
